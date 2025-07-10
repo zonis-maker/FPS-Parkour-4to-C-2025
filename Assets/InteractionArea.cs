@@ -6,24 +6,25 @@ public class InteractionArea : MonoBehaviour
 {
     public GameObject interactionMessage;
     public MercanciaScript mercancia;
-    // Start is called before the first frame update
+
     void Start()
     {
         interactionMessage.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (mercancia)
+            if (mercancia && mercancia.moneyManager != null)
             {
+                mercancia.moneyManager.UpdateMoney(-mercancia.cost);
                 Destroy(mercancia.gameObject);
                 StopInteraction();
-            } 
+            }
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
@@ -31,14 +32,15 @@ public class InteractionArea : MonoBehaviour
 
         if (mercancia)
         {
-               interactionMessage.SetActive(true);
+            interactionMessage.SetActive(true);
         }
     }
 
-   private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         StopInteraction();
     }
+
     void StopInteraction()
     {
         interactionMessage.SetActive(false);

@@ -6,15 +6,16 @@ public class MoneyManager : MonoBehaviour
 {
     public float Money;
     public UIManager uiManager;
-    // Start is called before the first frame update
+
     void Start()
     {
         uiManager.UpdateMoneyTxt(Money.ToString());
     }
 
-    // Update is called once per frame
     public void UpdateMoney(float moneyToAdd)
     {
+        Debug.Log("update");
+
         if(Money + moneyToAdd < 0)
         {
             Debug.Log("No te alcanza");
